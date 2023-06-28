@@ -1,0 +1,36 @@
+.confirmation-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    /*max-width: 1150px;*/
+    margin-right: auto;
+    margin-left: auto;
+    color: white;
+    /*background-color: white;*/
+
+}
+
+.confirmation-greeting{
+    padding: 20px;
+    font-size: 20px;
+    min-width: 500px;
+    background-color: rgba(0,201,11, 0.3);
+    border-radius: 20px;
+}
+
+.back-button{
+    display: flex;
+    margin-top: 30px;
+    align-items: center;
+    background-color: rgba(0,201,11, 0.3);
+    border-radius: 20px;
+}
+.back-button a{
+    padding: 20px;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+}

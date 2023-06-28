@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'common.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'main-site/main-page.css' %}">
+    <title>CinemaWorld strona główna</title>
+</head>
+<body>
+<div id="page-container">
+    <div id="page-container-wrap">
+        <!-- Navbar div  |        -->
+        <!--            \|/       -->
+        <div class="navbar-container-wrapper">
+            <div class="navbar-container-wide">
+                <a href="{% url 'home' %}" title="Strona główna">
+                    <div class="logo-container-wide">
+                        <div style="padding: 10px">
+                            <img class="profile-picture" src="{% static 'resources/logo.svg' %}" height="60">
+                        </div>
+                        <div style="font-size: 30px;">
+                            CinemaWorld
+                        </div>
+                    </div>
+                </a>
+
+                <div class="menu-container">
+                    <ul class="menu-list">
+                        <li><a href="{% url 'repertoires' %}" title="Repertuar">Repertuar</a></li>
+                        <li><a href="{% url 'contact' %}" title="">Kontakt</a></li>
+                        <li><a href="{% url 'about_us' %}" title="">O nas</a></li>
+                    </ul>
+                </div>
+                {% if user.is_authenticated %}
+                <div class="user-profile-container-wide">
+                    <div style="padding-right: 20px">
+                        Witaj {{ current_user.username }}
+                    </div>
+                    <button class="button-54" role="button"><a href="{% url 'logout' %}">Wyloguj się</a></button>
+                </div>
+                {% else %}
+                <div class="user-profile-container-wide">
+                    <button class="button-54" role="button"><a href="{% url 'Accounts:login' %}">konto</a></button>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="navbar-container-compact">
+                <a href="{% url 'home' %}" title="Strona główna">
+                    <div class="logo-container-compact">
+                        <div style="padding: 10px">
+                            <img src="{% static 'resources/logo.svg' %}" height="40">
+                        </div>
+                        <div style="font-size: 30px;">
+                            CinemaWorld
+                        </div>
+                    </div>
+                </a>
+                <input type="checkbox" id="menu-toggle" class="menu-toggle">
+                <label for="menu-toggle" class="menu-icon"></label>
+
+                <div class="navbar-menu-dropdown">
+                    {% if user.is_authenticated %}
+                        <div class="user-profile-container-compact">
+                            <div style="padding: 10px 0">
+                                <h2>Witaj {{ current_user.username }}</h2>
+                            </div>
+                            <button class="button-54" role="button"><a href="{% url 'logout' %}">Wyloguj się</a></button>
+                        </div>
+                    {% else %}
+                        <div class="user-profile-container-compact">
+                            <button class="button-54" role="button"><a href="{% url 'Accounts:login' %}">konto</a></button>
+                        </div>
+                    {% endif %}
+                    <div class="menu-container">
+                        <ul class="menu-list">
+                            <li><a href="{% url 'repertoires' %}" title="Repertuar">Repertuar</a></li>
+                            <li><a href="{% url 'contact' %}" title="">Kontakt</a></li>
+                            <li><a href="{% url 'about_us' %}" title="">O nas</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!--                   /|\ -->
+        <!-- End of navbar div  |  -->
+
+        <!-- Page content  |       -->
+        <!--              \|/      -->
+        <div class="slide-bar-container">
+            <!-- Slideshow container -->
+            <div class="slideshow-container">
+                <!-- Full-width images with number and caption text -->
+                {% for banner in banners %}
+                    <div class="mySlides fade">
+                        {% if banner.movie %}
+                            <a href="{% url 'film_detail' banner.movie.id %}">
+                                <img src="{{ banner.image.url }}" style="width:100%">
+                            </a>
+                        {% else %}
+                            <a href="{% url 'promotion' banner.promotion.id %}">
+                                <img src="{{ banner.image.url }}" style="width:100%">
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <!-- Next and previous buttons -->
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+            <br>
+            <!-- The dots/circles -->
+            <div style="text-align:center">
+                {% for banner in banners %}
+                    <span class="dot" onclick="currentSlide({{ forloop.counter }})"></span>
+                {% endfor %}
+{#                <span class="dot" onclick="currentSlide(1)"></span>#}
+{#                <span class="dot" onclick="currentSlide(2)"></span>#}
+{#                <span class="dot" onclick="currentSlide(3)"></span>#}
+            </div>
+        </div>
+        <div style="text-align: center; color: white"><h1>CinemaWorld poleca</h1></div>
+        <div class="films-posters-container" id="movie-list">
+            {% for f in movie_list %}
+            <div class="films-item">
+                <a href="{% url 'film_detail' f.id %}">
+                    <div class="film-content-item">
+                        <img src="{{ f.poster.url }}" alt="{{ f.title }}">
+                    </div>
+                    <div class="film-content-title">
+                        {{ f.title }}
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        <!--                     /|\   -->
+        <!-- End of page content  |    -->
+    </div>
+    <footer id="footer">
+        <div class="menu-container2">
+            <ul class="menu-list2">
+                <a href="{% url 'home' %}" title="">
+                    <li class="menu-list-item2">Strona główna</li>
+                </a>
+                <a href="{% url 'contact' %}" title="">
+                    <li class="menu-list-item2">Kontakt</li>
+                </a>
+                <a href="{% url 'about_us' %}" title="">
+                    <li class="menu-list-item2">O nas</li>
+                </a>
+            </ul>
+        </div>
+        Wszystkie prawa zastrzeżone Cinema World 2023 &copy;
+    </footer>
+</div>
+<script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    // Next/previous controls
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    // Thumbnail image controls
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = slides.length
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+    }
+
+
+</script>
+</body>
+</html>

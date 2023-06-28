@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'common.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'main-site/contact-form.css' %}">
+    <title>Napisz do nas wiadomość | CinemaWorld</title>
+</head>
+<body>
+<div id="page-container">
+    <div id="page-container-wrap">
+        <!-- Navbar div  |        -->
+        <!--            \|/       -->
+        <div class="navbar-container-wrapper">
+            <div class="navbar-container-wide">
+                <a href="{% url 'home' %}" title="Strona główna">
+                    <div class="logo-container-wide">
+                        <div style="padding: 10px">
+                            <img class="profile-picture" src="{% static 'resources/logo.svg' %}" height="60">
+                        </div>
+                        <div style="font-size: 30px;">
+                            CinemaWorld
+                        </div>
+                    </div>
+                </a>
+
+                <div class="menu-container">
+                    <ul class="menu-list">
+                        <li><a href="{% url 'repertoires' %}" title="Repertuar">Repertuar</a></li>
+                        <li><a href="{% url 'contact' %}" title="">Kontakt</a></li>
+                        <li><a href="{% url 'about_us' %}" title="">O nas</a></li>
+                    </ul>
+                </div>
+                {% if user.is_authenticated %}
+                <div class="user-profile-container-wide">
+                    <div style="padding-right: 20px">
+                        Witaj {{ current_user.username }}
+                    </div>
+                    <button class="button-54" role="button"><a href="{% url 'logout' %}">Wyloguj się</a></button>
+                </div>
+                {% else %}
+                <div class="user-profile-container-wide">
+                    <button class="button-54" role="button"><a href="{% url 'Accounts:login' %}">konto</a></button>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="navbar-container-compact">
+                <a href="{% url 'home' %}" title="Strona główna">
+                    <div class="logo-container-compact">
+                        <div style="padding: 10px">
+                            <img src="{% static 'resources/logo.svg' %}" height="40">
+                        </div>
+                        <div style="font-size: 30px;">
+                            CinemaWorld
+                        </div>
+                    </div>
+                </a>
+                <input type="checkbox" id="menu-toggle" class="menu-toggle">
+                <label for="menu-toggle" class="menu-icon"></label>
+
+                <div class="navbar-menu-dropdown">
+                    {% if user.is_authenticated %}
+                        <div class="user-profile-container-compact">
+                            <div style="padding: 10px 0">
+                                <h2>Witaj {{ current_user.username }}</h2>
+                            </div>
+                            <button class="button-54" role="button"><a href="{% url 'logout' %}">Wyloguj się</a></button>
+                        </div>
+                    {% else %}
+                        <div class="user-profile-container-compact">
+                            <button class="button-54" role="button"><a href="{% url 'Accounts:login' %}">konto</a></button>
+                        </div>
+                    {% endif %}
+                    <div class="menu-container">
+                        <ul class="menu-list">
+                            <li><a href="{% url 'repertoires' %}" title="Repertuar">Repertuar</a></li>
+                            <li><a href="{% url 'contact' %}" title="">Kontakt</a></li>
+                            <li><a href="{% url 'about_us' %}" title="">O nas</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!--                   /|\ -->
+            <!-- End of navbar div  |  -->
+
+            <!-- Page content  |       -->
+            <!--              \|/      -->
+
+            <div class="container">
+                <div class=form_container">
+                    <form action="{% url 'send_email' %}" method="post">
+                        {% csrf_token %}
+{#                        <div class="form-input-label">#}
+{#                            Imię i nazwisko:#}
+{#                        </div>#}
+{#                        <input type="text" id="name" name="name"><br><br>#}
+                        <div class="form-input-label">
+                            Adres email:
+                        </div>
+                       <input type="email" id="email" name="email" required><br><br>
+                        <div class="form-input-label">
+                            Temat:
+                        </div>
+                        <input type="text" id="subject" name="subject" required><br><br>
+                        <div class="form-input-label">
+                            Wiadomość:
+                        </div>
+                        <textarea id="message" name="message" rows="5" required></textarea><br><br>
+
+                        <button class="subbutton" type="submit">Wyślij</button>
+                    </form>
+                    <br>
+                </div>
+            </div>
+
+
+
+                   <!--                     /|\   -->
+                   <!-- End of page content  |    -->
+        </div>
+       <footer id="footer"><div class="menu-container2">
+            <ul class="menu-list2">
+                <a href="{% url 'home' %}" title="">
+                    <li class="menu-list-item2">Strona główna</li>
+                </a>
+                <a href="{% url 'contact' %}" title="">
+                    <li class="menu-list-item2">Kontakt</li>
+                </a>
+                <a href="{% url 'about_us' %}" title="">
+                    <li class="menu-list-item2">O nas</li>
+                </a>
+
+            </ul>
+        </div>
+        Wszystkie prawa zastrzeżone Cinema World 2023 &copy;
+       </footer>
+    </div>
+</body>
+</html>

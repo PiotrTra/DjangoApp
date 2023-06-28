@@ -1,0 +1,101 @@
+/* Plik CSS do wspólnych elementów stron !!! */
+
+html {
+		overflow-x: hidden;
+  		margin-right: calc(-1 * (100vw - 100%));
+  	}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+body {
+    font-family: "Sen", sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.ticket-checkout{
+    display: flex;
+    min-width: 500px;
+    max-width: 1150px;
+    margin: 20px auto;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: white;
+}
+
+.ticket-data{
+    width: clamp(490px, 47%, 47%);
+    background-color: rgba(0,201,11,0.2);
+    border-radius: 25px;
+    margin-bottom: 20px;
+}
+
+.ticket-seats{
+    font-size: 30px;
+}
+
+.seat-data{
+    color: white;
+    font-size: 20px;
+    padding: 10px 10px;
+    border-bottom-color: rgba(0,201,11, 1);
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+
+.ticket-cost{
+    margin-top: 20px;
+    padding: 10px 10px;
+    font-size: 20px;
+}
+
+.promotions_applied{
+    margin-top: 20px;
+}
+
+.promotions_applied ul{
+    padding: 10px 20px;
+}
+
+.payment-container{
+    /*margin-left: 10px;*/
+    width: clamp(490px, 47%, 47%);
+    color: black;
+    background-color: white;
+    border-radius: 25px;
+    margin-bottom: 20px;
+}
+
+.payment-method-text{
+    text-align: center;
+    padding: 10px;
+    font-size: 30px;
+}
+.payment-method{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.payment-method a img{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.payment-method-img{
+    width: 150px;
+}
+
+@media (max-width: 1000px) {
+    .ticket-checkout{
+        justify-content: center;
+    }
+}

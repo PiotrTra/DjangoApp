@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'registration/login_signup_template.css' %}">
+    <script src="{% static 'resources/jQuery_3.6.3./jquery-3.6.3.js' %}"></script>
+    <title>Zaloguj się/zarejestruj</title>
+</head>
+<body>
+
+<div class="registration-container">
+    <div class="login-or-signup-choice">
+        <button id="b1" class="choice-button active" onclick="toggleLoginSignup('b1', 'login')">
+            Zaloguj się
+        </button>
+        <button id="b2" class="choice-button" onclick="toggleLoginSignup('b2', 'signup')">
+            Załóź konto
+        </button>
+    </div>
+    <div id="login" class="login-or-signup-container">
+        <form action="{% url 'Accounts:login_send' %}" method="post" class="login-signup-form">
+            {% csrf_token %}
+            {% if error_message %}
+                <div class="error-message">
+                    {{ error_message }}
+                </div>
+            {% endif %}
+            <div class="form-input-label">Login</div>
+            <input type="text" name="login-l" required title="Login">
+            <div class="form-input-label">Hasło</div>
+            <div style="display: flex; align-items: center">
+                <input type="password" id="password-l" name="password-l" required title="Hasło" style="width: 100%;">
+                <button type="button" style="margin: 0;display: flex;align-items: center">
+                    <img id="show-pass-icon-l" src="{% static 'resources/view_green.png' %}" class="view-pass-icon"
+                         alt="Pokaż hasło">
+                </button>
+            </div>
+            <div class="form-input-label"><a href="{% url 'password_reset' %}">Zapomniałeś hasła?</a></div>
+            <button type="submit">Zaloguj się</button>
+        </form>
+    </div>
+    <div id="signup" class="login-or-signup-container" style="display: none;">
+        <form action="{% url 'Accounts:signup_send' %}" method="post" class="login-signup-form">
+            {% csrf_token %}
+
+{#            input dla imienia#}
+            <div class="form-input-label">Imię</div>
+            <input type="text" name="name-s" required title="Imię" maxlength="16">
+
+{#            input dla nazwiska#}
+            <div class="form-input-label">Nazwisko</div>
+            <input type="text" name="surname-s" required title="Nazwisko" maxlength="32">
+
+{#            input dla loginu#}
+            <div class="form-input-label">Login</div>
+            <input type="text" id="login-s" name="login-s" required title="Login"
+                   oninput="checkSignupData('login-s', 'login'); form_validation_check_wait()">
+            <div id="login-error" class="error-message-small" style="display: none;">Ten login jest już w użyciu</div>
+
+{#            input dla e-maila#}
+            <div class="form-input-label">E-mail</div>
+            <input type="email" id="email-s" name="email-s" required title="E-mail"
+                    oninput="checkSignupData('email-s', 'email'); form_validation_check_wait()">
+            <div id="email-error" class="error-message-small" style="display: none;">Ten e-mail jest już w użyciu</div>
+
+{#            input dla hasła#}
+            <div class="form-input-label">Hasło</div>
+            <div style="display: flex; align-items: center">
+                <input type="password" id="password-s" name="password-s" required title="Hasło" style="width: 100%;"
+                oninput="validatePassword()">
+                <button type="button" style="margin: 0;display: flex;align-items: center">
+                    <img id="show-pass-icon-s" src="{% static 'resources/view_green.png' %}" class="view-pass-icon"
+                         alt="Pokaż hasło">
+                </button>
+            </div>
+            <div id="pass_hint" class="password-hint" style="display: none">Hasło powinno zawierać co najmniej 8 znaków,
+                w tym małe i duże litery, cyfry, znaki specjalne
+            </div>
+
+            <div class="form-input-label">Data urodzenia</div>
+            <input type="date" id="birthday-s" name="birthday-s" required title="Data urodzenia"
+                    oninput="checkSignupData('birthday-s', 'birthdate'); form_validation_check_wait()">
+            <div id="age-error" class="error-message-small" style="display: none;">Musisz mieć skończone 13 lat, by
+                zarejestrować się na naszej stronie</div>
+
+            <button id="signup_button" type="submit">Zarejestruj się</button>
+        </form>
+    </div>
+</div>
+
+<a href="{{ request.META.HTTP_REFERER|escape }}" class="back-button">Wróć</a>
+<a style="position: absolute; bottom: 0; left: 50%; transform: translate(-50%);" href="https://www.flaticon.com/free-icons/eye" title="eye icons">Eye icons created by Kiranshastry - Flaticon</a>
+<script>
+
+    function toggleLoginSignup(buttonId, divId) {
+        let allButtons = document.getElementsByClassName("choice-button")
+        for (let i = 0; i < allButtons.length; i++) {
+            allButtons[i].classList.remove("active")
+        }
+        let activeButton = document.getElementById(buttonId)
+        activeButton.classList.add("active")
+
+        let allContents = document.getElementsByClassName("login-or-signup-container")
+        for (let i = 0; i < allContents.length; i++) {
+            allContents[i].style.display = "none"
+        }
+        let content = document.getElementById(divId)
+        content.style.display = "block"
+    }
+
+    const showPasswordIconLogin = document.getElementById("show-pass-icon-l")
+    const passwordInputLogin = document.getElementById("password-l")
+
+    showPasswordIconLogin.onmousedown = function () {
+        const type = passwordInputLogin.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInputLogin.setAttribute('type', type);
+        showPasswordIconLogin.src = "{% static 'resources/view_white.png' %}"
+    }
+    showPasswordIconLogin.onmouseup = function () {
+        const type = passwordInputLogin.getAttribute('type') === 'text' ? 'password' : 'text';
+        passwordInputLogin.setAttribute('type', type);
+        showPasswordIconLogin.src = "{% static 'resources/view_green.png' %}"
+    }
+    showPasswordIconLogin.onmouseout = function () {
+        passwordInputLogin.setAttribute('type', 'password');
+        showPasswordIconLogin.src = "{% static 'resources/view_green.png' %}"
+    }
+
+    const showPasswordIconSignup = document.getElementById("show-pass-icon-s")
+    const passwordInputSignup = document.getElementById("password-s")
+
+    showPasswordIconSignup.onmousedown = function () {
+        const type = passwordInputSignup.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInputSignup.setAttribute('type', type);
+        showPasswordIconSignup.src = "{% static 'resources/view_white.png' %}"
+    }
+    showPasswordIconSignup.onmouseup = function () {
+        const type = passwordInputSignup.getAttribute('type') === 'text' ? 'password' : 'text';
+        passwordInputSignup.setAttribute('type', type);
+        if(!passwordValid){
+            showPasswordIconSignup.src = "{% static 'resources/view_red.png' %}"
+        }else {
+            showPasswordIconSignup.src = "{% static 'resources/view_green.png' %}"
+        }
+    }
+    showPasswordIconSignup.onmouseout = function () {
+        passwordInputSignup.setAttribute('type', 'password');
+        if(!passwordValid){
+            showPasswordIconSignup.src = "{% static 'resources/view_red.png' %}"
+        }else {
+            showPasswordIconSignup.src = "{% static 'resources/view_green.png' %}"
+        }
+    }
+
+    let loginAvail = true;
+    let emailAvail = true;
+    let ageValid = true;
+    let passwordValid = true;
+
+    function validatePassword(){
+        setTimeout(()=>{
+            const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_.=+-]).{8,}$/
+
+            let pass = document.getElementById("password-s").value
+
+            if(!passRegex.test(pass)){
+                passwordValid = false
+                form_validation_check()
+            }else{
+                passwordValid = true
+                form_validation_check()
+            }
+        }, 1000)
+    }
+
+    const csrf = document.getElementsByName("csrfmiddlewaretoken")
+    const url = "{% url 'Accounts:signup_send' %}"
+
+    function checkSignupData(inputId, inputType) {
+        const fd = new FormData()
+        fd.append('csrfmiddlewaretoken', csrf[0].value)
+        fd.append(inputType, document.getElementById(inputId).value)
+
+        jQuery.ajax({
+            type: 'POST',
+            url: url,
+            enctype: 'multipart/form-data',
+            data: fd,
+            success: function (response) {
+                if (response.hasOwnProperty("LOGIN")) {
+                    loginAvail = response.LOGIN !== false;
+                }
+                if(response.hasOwnProperty("EMAIL")){
+                    emailAvail = response.EMAIL !== false;
+                }
+                if(response.hasOwnProperty("BD")){
+                    ageValid = response.BD !== false;
+                }
+            },
+            error: function (error) {
+                console.log(error)
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+
+        })
+    }
+
+    function form_validation_check_wait(){
+        setTimeout(form_validation_check, 100);
+    }
+
+    let loginInput = document.getElementById("login-s")
+    let emailInput = document.getElementById("email-s")
+    let dateInput = document.getElementById("birthday-s")
+    let passInput = document.getElementById("password-s")
+
+    passInput.onblur = function () {
+        if(passwordValid){
+            passInput.style.borderBottomColor = "transparent"
+            passInput.style.color = "white"
+        }else {
+            passInput.style.borderBottomColor = "rgb(255,0,0)"
+            passInput.style.backgroundColor = "rgba(255,0,0, 0.3)"
+            document.getElementById("pass_hint").style.color = "rgb(255,0,0)"
+
+        }
+    }
+    passInput.onfocus = function () {
+        document.getElementById("pass_hint").style.display = "block"
+        if(passwordValid){
+            passInput.style.borderBottomColor = "rgb(0,201,11)"
+        }
+    }
+
+    loginInput.onblur = function () {
+        if(loginAvail){
+            loginInput.style.borderBottomColor = "transparent"
+        }else {
+            loginInput.style.borderBottomColor = "rgb(255,0,0)"
+            loginInput.style.backgroundColor = "rgba(255,0,0, 0.3)"
+            document.getElementById("login-error").style.display = "block"
+        }
+    }
+    loginInput.onfocus = function () {
+        if(loginAvail){
+            loginInput.style.borderBottomColor = "rgb(0,201,11)"
+        }
+    }
+
+    emailInput.onblur = function () {
+        if(emailAvail){
+            emailInput.style.borderBottomColor = "transparent"
+        }else {
+            emailInput.style.borderBottomColor = "rgb(255,0,0)"
+            emailInput.style.backgroundColor = "rgba(255,0,0, 0.3)"
+            document.getElementById("email-error").style.display = "block"
+        }
+     }
+    emailInput.onfocus = function () {
+        if(emailAvail){
+            emailInput.style.borderBottomColor = "rgb(0,201,11)"
+        }
+     }
+
+    dateInput.onblur = function () {
+        if(ageValid){
+            dateInput.style.borderBottomColor = "transparent"
+        }else {
+            dateInput.style.borderBottomColor = "rgb(255,0,0)"
+            dateInput.style.backgroundColor = "rgba(255,0,0, 0.3)"
+            document.getElementById("email-error").style.display = "block"
+        }
+     }
+    dateInput.onfocus = function () {
+        if(ageValid){
+            dateInput.style.borderBottomColor = "rgb(0,201,11)"
+        }
+     }
+
+    function form_validation_check(){
+        let submitButton = document.getElementById("signup_button")
+
+        if (loginAvail && emailAvail && ageValid && passwordValid){
+            submitButton.disabled = false
+            submitButton.style.color = "white"
+        }else {
+            submitButton.disabled = true
+            submitButton.style.color = "grey"
+        }
+
+        if(document.activeElement===loginInput){
+            if(!loginAvail){
+                loginInput.style.borderBottomColor = "rgb(255,0,0)"
+                loginInput.style.backgroundColor = "rgba(255,0,0, 0.3)"
+                document.getElementById("login-error").style.display = "block"
+             }else {
+                loginInput.style.borderBottomColor = "rgb(0,201,11)"
+                loginInput.style.backgroundColor = "rgba(0,201,11, 0.3)"
+                document.getElementById("login-error").style.display = "none"
+             }
+        }
+
+        if(document.activeElement===emailInput) {
+            if (!emailAvail) {
+                emailInput.style.borderBottomColor = "rgb(255,0,0)"
+                emailInput.style.backgroundColor = "rgba(255,0,0, 0.3)"
+                document.getElementById("email-error").style.display = "block"
+            } else {
+                emailInput.style.borderBottomColor = "rgb(0,201,11)"
+                emailInput.style.backgroundColor = "rgba(0,201,11, 0.3)"
+                document.getElementById("email-error").style.display = "none"
+            }
+        }
+
+        if(document.activeElement===dateInput) {
+            if (!ageValid) {
+                dateInput.style.borderBottomColor = "rgb(255,0,0)"
+                dateInput.style.backgroundColor = "rgba(255,0,0, 0.3)"
+                document.getElementById("age-error").style.display = "block"
+                let b = document.getElementById("birthday-s")
+                b.style.setProperty('--bg_img', `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1" viewBox="0 0 24 24"><path fill="%23FF0000" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>')`)
+
+            } else {
+                dateInput.style.borderBottomColor = "rgb(0,201,11)"
+                dateInput.style.backgroundColor = "rgba(0,201,11, 0.3)"
+                document.getElementById("age-error").style.display = "none"
+                let b = document.getElementById("birthday-s")
+                b.style.setProperty('--bg_img', `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1" viewBox="0 0 24 24"><path fill="%2300C90B" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>')`)
+            }
+        }
+
+        if(document.activeElement===passInput){
+            if(!passwordValid){
+                passInput.style.borderBottomColor = "rgb(255,0,0)"
+                passInput.style.backgroundColor = "rgba(255,0,0, 0.3)"
+                document.getElementById("pass_hint").style.color = "rgb(255,0,0)"
+                document.getElementById('show-pass-icon-s').src = "{% static 'resources/view_red.png' %}"
+            }else {
+                passInput.style.borderBottomColor = "rgb(0,201,11)"
+                passInput.style.backgroundColor = "rgba(0,201,11, 0.3)"
+                document.getElementById("pass_hint").style.color = "white"
+                document.getElementById('show-pass-icon-s').src = "{% static 'resources/view_green.png' %}"
+            }
+        }
+    }
+
+</script>
+</body>
+</html>

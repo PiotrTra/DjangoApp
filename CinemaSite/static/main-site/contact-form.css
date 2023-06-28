@@ -1,0 +1,82 @@
+.container{
+    color:white;
+    width:clamp(490px, 50%,1000px);
+    margin:auto;
+    padding-top: 20px;
+}
+
+body *{
+    font-family: "Sen", sans-serif;
+}
+
+.form_container{
+    align-items: center;
+    border-style: solid;
+    border-width: 4px;
+    border-radius: 15px;
+    border-color: rgb(0,201,11);
+    width: 500px;
+    color: white;
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%);
+    overflow: hidden;
+}
+
+.title{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    color: white;
+    border: none;
+    font-size: 25px;
+    background-color: rgba(0,201,11, 0.5);
+    background-clip: border-box;
+    text-align: center;
+}
+
+.subbutton{
+    width:20%;
+    margin: 10px 8px;
+    padding: 5px 0 5px 0;
+    background-color: rgba(0,201,11, 0.5);
+    font-size: 20px;
+    color: white;
+    border-style: none;
+    border-radius: 15px;
+}
+
+.form-input-label{
+    padding: 0 10px 0 10px;
+}
+
+input{
+    margin: 10px 10px;
+    padding: 5px 0 5px 10px;
+    background-color: rgba(0,201,11, 0.3);
+    font-size: 20px;
+    color: white;
+    outline: none;
+    border-style: none;
+    border-radius: 15px;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+    width:clamp(470px, 95%, 95%);
+}
+
+textarea{
+    margin: 10px 10px;
+    padding: 5px 0 5px 10px;
+    background-color: rgba(0,201,11, 0.3);
+    width:clamp(470px, 95%, 95%);
+    resize: vertical;
+    font-size: 20px;
+    color: white;
+    outline: none;
+    border-style: none;
+    border-radius: 15px;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+
+}

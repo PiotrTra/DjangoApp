@@ -1,0 +1,22 @@
+.promotion-wrapper{
+    width: clamp(490px, 60%, 60%);
+    margin: 20px auto auto;
+    background-color: rgba(0,201,11,0.2);
+    border-radius: 15px;
+}
+
+.promotion-img img{
+    width: 100%;
+    padding: 15px;
+    border-radius: 25px;
+
+}
+
+.promotion-data{
+    color: white;
+    padding: 20px;
+    margin: auto auto 20px;
+}
+.promotion-data h3{
+    margin: 20px 20px 0 20px;
+}

@@ -1,0 +1,280 @@
+/* Plik CSS do wspólnych elementów stron !!! */
+
+html {
+    overflow-x: hidden;
+    /*margin-right: calc(-1 * (100vw - 100%));*/
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+body {
+    background-color: #151515;
+    font-family: "Sen", sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* CSS elementów strony żeby stopka zawsze była na końcu/na dole strony */
+/* nie zmieniać aż do CSS nawigacji */
+#page-container {
+    position: relative;
+    /*top: -100px;*/
+    min-height: 100vh;
+}
+
+#page-container-wrap {
+    padding-bottom: 50px; /* Footer height */
+}
+
+/* CSS Stopki */
+/* jedyne co zmieniać potem to jej wysokość, color/rozmiar czcionki (o resztę zmian pytać) */
+#footer {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    border-top-style: solid;
+    border-top-color: rgba(0, 201, 11, 255);
+    border-top-width: 2px;
+    background-color: black;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /*height: 60px; !* Footer height *!*/
+    text-align: center;
+    color: grey;
+
+}
+
+.menu-container2 {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+.menu-list2 {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style: none;
+    width: 100%;
+}
+
+.movie-list-item2 {
+    font-size: 12px;
+    margin-right: 30px;
+    position: relative;
+}
+
+
+#footer a {
+    color: white;
+}
+
+/* CSS nawigacji */
+
+.navbar-container-wrapper {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    margin: auto;
+    /*height: fit-content;*/
+    background-color: black;
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*justify-content: space-between;*/
+    z-index: 100;
+    /*padding: 5px 12%;*/
+}
+
+.menu-container {
+    display: flex;
+    align-items: center;
+}
+
+/* NAVBAR WIDE */
+
+.navbar-container-wide {
+    display: flex;
+    width: clamp(480px, 80%, 80%);
+    margin: auto;
+    justify-content: space-between;
+}
+
+.logo-container-wide {
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.user-profile-container-wide {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 25px;
+    color: white;
+    /*padding-right: 20px;*/
+}
+
+/* NAVBAR COMPACT */
+.navbar-container-compact{
+    display: flex;
+    width: clamp(490px, 80%, 80%);
+    margin: auto;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.logo-container-compact {
+    display: none;
+    align-items: center;
+    color: white;
+}
+
+.navbar-menu-dropdown{
+    border-top-color: white;
+    border-top-width: 2px;
+    border-top-style: solid;
+    display: none;
+    position: absolute;
+    top: 100%;
+    color: white;
+    width: clamp(500px, 50%, 50%);
+    right: 0;
+    background-color: black;
+}
+.user-profile-container-compact{
+    padding: 15px 0 15px;
+    text-align: center;
+    margin: auto;
+}
+
+/******************/
+
+.menu-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-list li {
+    padding: 15px 10px;
+    font-size: 20px;
+}
+
+.menu-list li a {
+    color: darkgrey;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+}
+
+.menu-list-item.active {
+    font-weight: bold;
+}
+
+/* Menu rozwijane - ikona */
+.menu-toggle {
+    display: none;
+}
+
+/* Menu rozwijane - ikona - wyświetlanie tylko przy wąskiej stronie */
+@media (max-width: 1200px) {
+    .navbar-container-wide{
+        display: none;
+    }
+    .logo-container-wide{
+        display: none;
+    }
+    .user-profile-container-wide{
+        display: none;
+    }
+    .navbar-container-compact{
+        display: flex;
+    }
+    .logo-container-compact{
+        display: flex;
+    }
+    .navbar-menu-dropdown {
+        display: none;
+    }
+
+    .menu-icon {
+        display: block;
+        width: 30px;
+        height: 30px;
+        margin-right: 50px;
+        background-image: url('resources/menu-icon.png');
+        background-size: cover;
+        cursor: pointer;
+    }
+
+    .menu-list {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .menu-list li {
+        border-top-style: solid;
+        border-top-color: white;
+        border-top-width: 2px;
+        width: 100%;
+        padding: 20px 20px;
+    }
+
+    .menu-list li a {
+        color: darkgrey;
+    }
+
+    .menu-toggle:checked ~ .menu-icon{
+        rotate: 180deg;
+        transition: rotate 0.5s ease;
+    }
+
+    .menu-toggle:checked ~ .navbar-menu-dropdown {
+        display: block;
+    }
+}
+
+
+/* CSS */
+.button-54 {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+    cursor: pointer;
+    border: 3px solid;
+    padding: 0.25em 0.5em;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    background: black;
+}
+
+.button-54:active {
+    box-shadow: 0px 0px 0px 0px;
+    top: 5px;
+    left: 5px;
+}
+
+@media (min-width: 768px) {
+    .button-54 {
+        padding: 0.25em 0.75em;
+    }
+}
+
+.button-54 a {
+    color: white;
+}

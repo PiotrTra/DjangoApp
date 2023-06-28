@@ -1,0 +1,71 @@
+/* Plik CSS do wspólnych elementów stron !!! */
+
+html {
+		overflow-x: hidden;
+  		margin-right: calc(-1 * (100vw - 100%));
+  	}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+body {
+    font-family: "Sen", sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.movie-show-seats{
+    /*Use this for future projects \|/ */
+    /*          (min, preferable, max) */
+    width: clamp(500px, 60%, 1150px);
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.movie-show-data{
+    padding-top: 20px;
+    padding-left: 10px;
+    font-size: 30px;
+}
+
+.take-a-seat{
+    padding-top: 20px;
+    padding-left: 10px;
+    font-size: 20px;
+    padding-bottom: 20px;
+}
+
+.seat-div{
+    max-width: 60px;
+    min-width: 25px;
+    margin-bottom: 10px;
+}
+
+.movie-show-chair-selected{
+    background-color: rgba(0,201,11, 0.5);
+    border-radius: 15px;
+}
+
+.armchair-icon{
+
+    width: 100%;
+    height: 100%;
+    -webkit-transform:rotate(180deg); /* Chrome, Safari, Opera */
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);   /* Standard syntax */
+}
+
+.accept-selected-seats{
+    padding: 20px 10px;
+    text-align: right;
+    font-size: 30px;
+}
+

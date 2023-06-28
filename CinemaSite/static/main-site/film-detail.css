@@ -1,0 +1,279 @@
+.film-title-and-ticket{
+    padding-top: 20px;
+    width: clamp(450px, 60%, 60%);
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 30px;
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1em;
+    flex-wrap: wrap;
+}
+
+.ticket-button{
+    border-style: none;
+    padding: 10px;
+    border-radius: 25px;
+    background-color: rgba(0,201,11, 1);
+    text-align: center;
+    white-space: nowrap;
+}
+
+.film-trailer-container{
+    width: clamp(490px, 60%, 60%);
+    height: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.film-trailer-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+}
+
+/* Then style the iframe to fit in the container div with full height and width */
+.film-trailer-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    border-style: none;
+    border-radius: 10px;
+}
+
+.film-details-container{
+    width: clamp(470px, 60%, 60%);
+    display: flex;
+    color: white;
+    margin: 60px auto 50px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.film-details-data{
+    width: clamp(450px, 50%, 60%);
+}
+
+.film-details-poster{
+    padding-top: 20px;
+    width: clamp(450px, 45%, 60%);
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.film-details-poster img{
+    width: 70%;
+}
+
+.film-details-top{
+    display: flex;
+}
+
+.details-item{
+    width: 33.3%;
+    display: flex;
+    align-items: center;
+}
+
+.details-item img {
+    width: 50px;
+}
+
+.film-details-bottom {
+    margin-top: 30px;
+}
+
+.details-row{
+    display: flex;
+    padding: 5px;
+    border-bottom-color: rgba(0,201,11, 1);
+    border-bottom-style: solid;
+    border-width: 1px;
+}
+
+.details-row-item{
+    width: 25%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.details-row-directors-actors{
+    width: 25%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.details-row-directors-actors-list{
+    width: 75%;
+}
+
+.details-row-directors-actors-list-item{
+    display: flex;
+    align-items: center;
+    padding-bottom: 5px;
+}
+
+.details-row-directors-actors-list-item img{
+    margin-right: 20px;
+    border-radius: 10px;
+}
+
+.movie-shows-wrapper{
+    width: 100%;
+    padding: 20px 0;
+    background-color: rgba(0,201,11, 0.3);
+    color: white;
+    margin-bottom: 30px;
+}
+
+.movie-shows{
+    width: clamp(470px, 60%, 60%);
+    margin: auto;
+}
+.movie-show-item{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    background-color: black;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.movie-shows-date-cinema-select{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap-reverse;
+    align-items: center
+}
+@media (max-width: 1600px) {
+    .movie-shows-date-cinema-select{
+        justify-content: center;
+    }
+}
+
+.movie-show-date-inside{
+    margin: 20px auto;
+}
+
+.movie-show-date-buttons{
+    display: flex;
+    margin: 10px 0;
+    justify-content: space-between;
+    width: clamp(470px, 45%, 60%);
+    background-color: rgba(0,201,11,0.2);
+    border-radius: 10px;
+}
+
+.movie-show-cinema-select{
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.movie-show-cinema-select select{
+    font-size: 1.1em;
+    background-color: #151515;
+    width: clamp(470px, 30%, 30%);
+    color: white;
+    border-style: none;
+    padding: 10px;
+    border-radius: 10px;
+}
+.movie-show-cinema-select option{
+    background-color: #151515;
+}
+
+.day-button{
+    border-style: none;
+    width: 14%;
+    height: 40px;
+    background: none;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    transition: font-size 0.3s ease-out 100ms;
+}
+
+.day-button:hover{
+    font-size: 26px;
+}
+
+.active-button{
+    font-size: 26px;
+    background-color: rgba(0,201,11,0.4);
+    border-radius: 10px;
+    transition: background-color 0.3s ease-out 100ms;
+}
+
+
+.ticket-selected_date{
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+}
+
+.movie-show-row{
+    display: flex;
+    text-align: center;
+}
+
+.movie-show-row-time{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: 25px;
+    background: rgba(0,201,11, 0.5);
+    border-radius: 10px;
+    transition: background-color 0.5s ease-out 100ms;
+    display: flex;
+}
+
+.movie-show-row-time:hover{
+    background: rgba(0,201,11, 1);
+}
+
+.movie-show-row-data{
+    margin-left: 15px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.movie-shows-none{
+    padding: 10px 0 10px 0;
+    font-size: 25px;
+}
+
+
+.details-row ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.details-row ul li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.details-row ul li img {
+  width: 80px;
+  height: 80px;
+}
+
+.details-row ul li span {
+  margin-top: 5px;
+}

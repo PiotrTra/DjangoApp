@@ -1,0 +1,48 @@
+.container{
+    padding-top:20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: clamp(500px, 50%, 50%);
+    overflow: auto;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.box1{
+    width:clamp(470px, 25%, 25%);
+    margin: auto;
+}
+.box2 {
+    width:clamp(470px, 25%, 25%);
+    margin: auto;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    text-align: center;
+    padding: 8px;
+  }
+.up{
+  font-size:20px;
+    height: 70px;
+}
+.down{
+  font-size:25px;
+}
+.subbutton{
+    width:97%;
+    margin: 10px 8px;
+    padding: 5px 10px 5px 10px;
+    background-color: rgba(0,201,11, 0.5);
+    font-size: 20px;
+    color: white;
+    border-style: none;
+    border-radius: 15px;
+}
